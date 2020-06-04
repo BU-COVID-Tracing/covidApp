@@ -1,0 +1,11 @@
+bu/COVIDApp/restservice/ContactCheck/Accessors/KeyValBloomFilterAccessor.class
+bu/COVIDApp/restservice/InfectedKeyUpload/InfectedKeys.class
+bu/COVIDApp/CovidAppApplication.class
+bu/COVIDApp/restservice/ContactCheck/Accessors/KeySetAccessor.class
+bu/COVIDApp/restservice/ContactCheck/RegistryPostResponse.class
+bu/COVIDApp/restservice/ContactCheck/RegistryGetResponse.class
+bu/COVIDApp/restservice/ContactCheck/RegistryAccessController.class
+bu/COVIDApp/restservice/ContactCheck/Accessors/RegistryAccessor.class
+bu/COVIDApp/restservice/UploadCredentialsController.class
+bu/COVIDApp/restservice/InfectedKeyUpload/InfectedKeyUploadController.class
+bu/COVIDApp/restservice/ContactCheck/RegistryPostInput.class
