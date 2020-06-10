@@ -1,15 +1,21 @@
 package bu.COVIDApp.restservice.ContactCheck;
 
+import bu.COVIDApp.Database.KeySetData;
+import bu.COVIDApp.Database.KeySetRegistry;
+import bu.COVIDApp.restservice.ContactCheck.Accessors.KeySetAccessor;
 import bu.COVIDApp.restservice.ContactCheck.Accessors.KeyValBloomFilterAccessor;
 import bu.COVIDApp.restservice.ContactCheck.Accessors.RegistryAccessor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 
+@Controller
 public class RegistryAccessController {
-    final String myEndpoint = "dbEndpoint";
+    @Autowired
+    private KeySetRegistry keyReg;
 
     /**
      * Do some type of access that gets the user information that allows them to check if they have keys that have been marked
@@ -18,9 +24,10 @@ public class RegistryAccessController {
      * @return The object that will be sent to the user and will allow them to determine if they have made contact with an infected user
      */
     @GetMapping("/contactCheck")
-    public RegistryGetResponse getContactCheck(@RequestParam(value = "authentication", defaultValue = "") String authentication){
-        RegistryAccessor myAccessor = new KeyValBloomFilterAccessor("endpoint");
-        return myAccessor.getKeys();
+    public @ResponseBody
+    ArrayList<KeySetData> getContactCheck (@RequestParam(value = "authentication", defaultValue = "") String authentication){
+        RegistryAccessor myAccessor = new KeySetAccessor(keyReg);
+        return myAccessor.getKeys().getMyDataContainer();
     }
 
     /**
@@ -31,7 +38,7 @@ public class RegistryAccessController {
     @PostMapping("/contactCheck")
     public boolean postContactCheck(@RequestBody RegistryPostInput UserInput){
         RegistryAccessor myAccessor = new KeyValBloomFilterAccessor("endpoint");
-        return myAccessor.postKeys(UserInput.getKeys());
+        return myAccessor.checkKeys(UserInput.getKeys());
     }
 
     /**

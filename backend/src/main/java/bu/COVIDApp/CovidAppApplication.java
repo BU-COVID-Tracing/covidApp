@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CovidAppApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(CovidAppApplication.class, args);
 	}
 

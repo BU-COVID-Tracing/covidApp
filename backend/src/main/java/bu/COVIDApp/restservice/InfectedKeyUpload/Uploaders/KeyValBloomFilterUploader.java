@@ -3,8 +3,10 @@ package bu.COVIDApp.restservice.InfectedKeyUpload.Uploaders;
 import bu.COVIDApp.restservice.InfectedKeyUpload.InfectedKeys;
 import bu.COVIDApp.restservice.InfectedKeyUpload.Uploaders.InfectedKeyUploader;
 
+import java.util.List;
+
 public class KeyValBloomFilterUploader extends InfectedKeyUploader {
-    public KeyValBloomFilterUploader(InfectedKeys myKeys){
+    public KeyValBloomFilterUploader(List<InfectedKeys> myKeys){
         super(myKeys);
     }
 
@@ -13,11 +15,12 @@ public class KeyValBloomFilterUploader extends InfectedKeyUploader {
      * and make the necessary updates to the bloom filter stored in the database
      */
     @Override
-    public void uploadKeys() {
-        if(authorize()){
-            //Do key upload
-        }else{
-            //Return something to the user to let them know that the authorization failed
-        }
+    public boolean uploadKeys() {
+//        if(authorize()){
+//            //Do key upload
+//        }else{
+//            //Return something to the user to let them know that the authorization failed
+//        }
+        return true;
     }
 }

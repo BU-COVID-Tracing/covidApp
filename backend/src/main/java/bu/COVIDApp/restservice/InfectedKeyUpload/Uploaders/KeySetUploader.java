@@ -1,25 +1,33 @@
 package bu.COVIDApp.restservice.InfectedKeyUpload.Uploaders;
 
+import bu.COVIDApp.Database.KeySetData;
+import bu.COVIDApp.Database.KeySetRegistry;
 import bu.COVIDApp.restservice.InfectedKeyUpload.InfectedKeys;
-import bu.COVIDApp.restservice.InfectedKeyUpload.Uploaders.InfectedKeyUploader;
+
+import java.util.List;
 
 public class KeySetUploader extends InfectedKeyUploader {
+
+    KeySetRegistry keyReg;
+
+
     /**
      * @param myKeys an InfectedKeys object that contains the keys and authorization info for the key upload
      */
-    public KeySetUploader(InfectedKeys myKeys) {
+    public KeySetUploader(List<InfectedKeys> myKeys, KeySetRegistry keyReg) {
         super(myKeys);
+        this.keyReg = keyReg;
     }
 
     /**
      * Upload the keys in myKeys to the registry.
      */
     @Override
-    public void uploadKeys() {
-        if(authorize()){
-            //Do key upload
-        }else{
-            //Return something to the user to let them know that the authorization failed
+    public boolean uploadKeys() {
+        for(InfectedKeys key:this.myKeys){
+            KeySetData myData = new KeySetData(key.getChirp(),key.getTime());
+            keyReg.save(myData);
         }
+        return true;
     }
 }

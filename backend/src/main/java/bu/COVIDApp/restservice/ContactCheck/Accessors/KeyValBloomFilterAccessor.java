@@ -1,5 +1,6 @@
 package bu.COVIDApp.restservice.ContactCheck.Accessors;
 
+import bu.COVIDApp.Database.KeySetRegistry;
 import bu.COVIDApp.restservice.ContactCheck.RegistryGetResponse;
 
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ public class KeyValBloomFilterAccessor extends RegistryAccessor {
      * A constructor for an object that makes accesses to the backend registry
      * @param endpoint the endpoint used to access the database
      */
-    public KeyValBloomFilterAccessor(String endpoint) {
-        super(endpoint);
+    public KeyValBloomFilterAccessor(Object myReg) {
+        super(myReg);
     }
 
     /**
@@ -24,13 +25,13 @@ public class KeyValBloomFilterAccessor extends RegistryAccessor {
     }
 
     /**
-     * A user provides a list of keys that they have enoucntered and a check is done against the bloom filter here
+     * A user provides a list of keys that they have encountered and a check is done against the bloom filter here
      * with a positive or negative result returned back to the user
      * @param myKeys A list of keys to check against your local version of the registry
      * @return true if a matching key was found, false otherwise
      */
     @Override
-    public Boolean postKeys(ArrayList<Object> myKeys) {
+    public Boolean checkKeys(ArrayList<Object> myKeys) {
         return null;
     }
 }

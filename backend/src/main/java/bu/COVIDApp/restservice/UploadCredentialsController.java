@@ -1,7 +1,9 @@
 package bu.COVIDApp.restservice;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Controller
 public class UploadCredentialsController {
     /**
      * Create a new authentication key to be used by public health officials for uploading
