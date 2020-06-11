@@ -1,0 +1,1 @@
+../../../MultiplatformBleAdapter/iOS/classes/MultiPlatformBLEAdapter.h

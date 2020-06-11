@@ -1,0 +1,44 @@
+toc:
+  - name: Introduction
+    file: INTRO.md
+  - name: Main Classes
+    description: |
+      Classes described below are main building blocks for your BLE support. They
+      are presented in order which aligns them with usage.
+  - BleManager
+  - Device
+  - Service
+  - Characteristic
+  - Descriptor
+  - name: Utils
+    description: |
+      Utility functions and classes.
+  - fullUUID
+  - name: BLE Error
+    description: |
+      Types and classes related to BLE errors.
+  - BleError
+  - BleErrorCode
+  - BleErrorCodeMessage
+  - BleATTErrorCode
+  - BleAndroidErrorCode
+  - BleIOSErrorCode
+  - name: Flow Types
+    description: |
+      All Flow aliases and Flow types used in this library.
+  - LogLevel
+  - ConnectionPriority
+  - State
+  - BleErrorCodeMessageMapping
+  - BleManagerOptions
+  - BleRestoredState
+  - ScanOptions
+  - ScanCallbackType
+  - ScanMode
+  - ConnectionOptions
+  - DeviceId
+  - Identifier
+  - UUID
+  - TransactionId
+  - Subscription
+  - Base64

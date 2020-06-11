@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "covidapp",
+    "slug": "covidapp",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.BU.covidapp",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "android": {
+      "package": "com.BU.covidapp"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  }
+}

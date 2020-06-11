@@ -1,0 +1,46 @@
+{
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "web": "expo start --web",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "~10.0.6",
+    "@react-native-community/masked-view": "0.1.6",
+    "@react-navigation/bottom-tabs": "^5.3.1",
+    "@react-navigation/native": "^5.2.1",
+    "@react-navigation/stack": "^5.2.16",
+    "expo": "~37.0.9",
+    "expo-asset": "~8.1.0",
+    "expo-constants": "~9.0.0",
+    "expo-font": "~8.1.0",
+    "expo-linking": "^1.0.1",
+    "expo-splash-screen": "^0.2.3",
+    "expo-updates": "~0.2.0",
+    "expo-web-browser": "~8.2.0",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "~0.61.5",
+    "react-native-ble-plx": "^2.0.0",
+    "react-native-gesture-handler": "~1.6.0",
+    "react-native-reanimated": "~1.7.0",
+    "react-native-safe-area-context": "0.7.3",
+    "react-native-screens": "~2.2.0",
+    "react-native-unimodules": "~0.9.0",
+    "react-native-web": "~0.11.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "babel-jest": "~25.2.6",
+    "jest": "~25.2.6",
+    "react-test-renderer": "~16.9.0",
+    "babel-preset-expo": "~8.1.0",
+    "jest-expo": "~37.0.0"
+  },
+  "private": true
+}
