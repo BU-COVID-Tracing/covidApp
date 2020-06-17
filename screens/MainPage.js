@@ -18,6 +18,27 @@ const MainPage = props => {
     setExposures((currExp) => [...currExp, { key: (count+1).toString(), date: date }]);
   };
 
+  const saveKey = () => {
+    AsyncStorage.setItem('123','May 20')
+    Alert.alert('OK', 'Saved');
+  }
+
+  const findKey = async () => {
+    try {
+      const value = await AsyncStorage.getItem('123');
+      if(value !== null) {
+        // value previously stored
+        Alert.alert('Found', 'key has been seen');
+      } else {
+        Alert.alert('Not found', 'Key not previously seen');
+      };
+    }
+    catch(error) {
+
+    }
+  }
+
+
   const apiCall = () => {
     fetch('http://54.157.183.164:8080/contactCheck', { method: "GET" })
       .then((response) => response.json())
@@ -98,6 +119,22 @@ const MainPage = props => {
           <TouchableOpacity onPress={apiCall}>
             <View style={styles.line}>
               <Text style={{ paddingLeft: 20 }}>Call API</Text>
+            </View>
+          </TouchableOpacity>
+        </Card>
+
+        <Card style={{...styles.card, width: '40%'}}>
+          <TouchableOpacity onPress={saveKey}>
+            <View style={styles.line}>
+              <Text style={{ paddingLeft: 20 }}>Save</Text>
+            </View>
+          </TouchableOpacity>
+        </Card>
+
+        <Card style={{...styles.card, width: '40%'}}>
+          <TouchableOpacity onPress={findKey}>
+            <View style={styles.line}>
+              <Text style={{ paddingLeft: 20 }}>Retrieve</Text>
             </View>
           </TouchableOpacity>
         </Card>
