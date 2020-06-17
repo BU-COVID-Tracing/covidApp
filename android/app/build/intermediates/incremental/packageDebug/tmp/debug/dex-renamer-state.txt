@@ -1,0 +1,4 @@
+#Wed Jun 10 13:35:05 EDT 2020
+base.0=C\:\\Users\\nadim\\OneDrive\\Documents\\Boston University\\Year 3\\Summer 2020\\Contact Tracing BU\\ui_bare\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
