@@ -17,6 +17,9 @@ Next steps:
 
 1. Need to link front-end and back-end
 2. Write characteristics into BLE packets
+To send advertising packets, we need to put device in peripheral mode, this library doesn't have support for that function so we will be using the following one:
+https://www.npmjs.com/package/react-native-ibeacon-simulator
+
 Helpful link to understand how BLE packets are structured
 https://www.bluetooth.com/blog/bluetooth-low-energy-it-starts-with-advertising/
 
