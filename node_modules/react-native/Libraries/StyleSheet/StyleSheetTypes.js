@@ -18,6 +18,12 @@ export type PointValue = {|
   x: number,
   y: number,
 |};
+export type EdgeInsetsValue = {|
+  top: number,
+  left: number,
+  right: number,
+  bottom: number,
+|};
 export type DimensionValue = null | number | string | AnimatedNode;
 
 /**
@@ -576,24 +582,26 @@ export type ____ViewStyle_Internal = $ReadOnly<{|
   elevation?: number,
 |}>;
 
+export type ____FontWeight_Internal =
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
+
 export type ____TextStyle_Internal = $ReadOnly<{|
   ...$Exact<____ViewStyle_Internal>,
   color?: ColorValue,
   fontFamily?: string,
   fontSize?: number,
   fontStyle?: 'normal' | 'italic',
-  fontWeight?:
-    | 'normal'
-    | 'bold'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900',
+  fontWeight?: ____FontWeight_Internal,
   fontVariant?: $ReadOnlyArray<
     | 'small-caps'
     | 'oldstyle-nums'
@@ -635,6 +643,7 @@ export type ____DangerouslyImpreciseStyle_Internal = {
   +resizeMode?: 'contain' | 'cover' | 'stretch' | 'center' | 'repeat',
   +tintColor?: ColorValue,
   +overlayColor?: string,
+  ...
 };
 
 type GenericStyleProp<+T> =
@@ -660,4 +669,5 @@ export type ____ImageStyleProp_Internal = GenericStyleProp<
 
 export type ____Styles_Internal = {
   +[key: string]: $Shape<____DangerouslyImpreciseStyle_Internal>,
+  ...,
 };

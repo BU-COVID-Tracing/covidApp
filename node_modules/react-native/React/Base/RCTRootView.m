@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -14,6 +14,7 @@
 #import "RCTAssert.h"
 #import "RCTBridge.h"
 #import "RCTBridge+Private.h"
+#import "RCTConstants.h"
 #import "RCTEventDispatcher.h"
 #import "RCTKeyCommands.h"
 #import "RCTLog.h"
@@ -347,7 +348,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   if (bothSizesHaveAZeroDimension || sizesAreEqual) {
     return;
   }
-  
+
   [self invalidateIntrinsicContentSize];
   [self.superview setNeedsLayout];
 
@@ -366,9 +367,19 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   [self showLoadingView];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+  [super traitCollectionDidChange:previousTraitCollection];
+
+  [[NSNotificationCenter defaultCenter] postNotificationName:RCTUserInterfaceStyleDidChangeNotification
+                                                      object:self
+                                                    userInfo:@{
+                                                      RCTUserInterfaceStyleDidChangeNotificationTraitCollectionKey: self.traitCollection,
+                                                    }];
+}
+
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [_contentView invalidate];
 }
 

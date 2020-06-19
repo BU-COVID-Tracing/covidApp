@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -23,6 +23,16 @@
 - (void)setReactTag:(NSNumber *)reactTag
 {
   objc_setAssociatedObject(self, @selector(reactTag), reactTag, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSNumber *)rootTag
+{
+  return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setRootTag:(NSNumber *)rootTag
+{
+  objc_setAssociatedObject(self, @selector(rootTag), rootTag, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSNumber *)nativeID
@@ -317,16 +327,6 @@
   objc_setAssociatedObject(self, @selector(accessibilityRole), accessibilityRole, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSArray<NSString *> *)accessibilityStates
-{
-  return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setAccessibilityStates:(NSArray<NSString *> *)accessibilityStates
-{
-  objc_setAssociatedObject(self, @selector(accessibilityStates), accessibilityStates, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (NSDictionary<NSString *, id> *)accessibilityState
 {
   return objc_getAssociatedObject(self, _cmd);
@@ -337,8 +337,16 @@
   objc_setAssociatedObject(self, @selector(accessibilityState), accessibilityState, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-#pragma mark - Debug
+- (NSDictionary<NSString *, id> *)accessibilityValueInternal
+{
+  return objc_getAssociatedObject(self, _cmd);
+}
+- (void)setAccessibilityValueInternal:(NSDictionary<NSString *, id> *)accessibilityValue
+{
+  objc_setAssociatedObject(self, @selector(accessibilityValueInternal), accessibilityValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
+#pragma mark - Debug
 - (void)react_addRecursiveDescriptionToString:(NSMutableString *)string atLevel:(NSUInteger)level
 {
   for (NSUInteger i = 0; i < level; i++) {

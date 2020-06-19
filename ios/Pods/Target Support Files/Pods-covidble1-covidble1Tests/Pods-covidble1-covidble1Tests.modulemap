@@ -1,0 +1,6 @@
+module Pods_covidble1_covidble1Tests {
+  umbrella header "Pods-covidble1-covidble1Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

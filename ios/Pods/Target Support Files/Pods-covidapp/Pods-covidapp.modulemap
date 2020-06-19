@@ -1,6 +1,0 @@
-module Pods_covidapp {
-  umbrella header "Pods-covidapp-umbrella.h"
-
-  export *
-  module * { export * }
-}
