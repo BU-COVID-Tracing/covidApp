@@ -27,7 +27,7 @@ const WelcomePage = props => {
         <Button 
           title='Tell me more first' 
           color='rgb(248,145,85)'
-          onPress={() => props.navigation.navigate('Information')} 
+          onPress={() => props.navigation.navigate('Information 1')} 
         />
       </View>
     </View>

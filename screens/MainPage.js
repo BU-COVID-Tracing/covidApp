@@ -1,57 +1,79 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Card from '../components/Card'
 
 const MainPage = props => {
-  const [exposures, setExposures] = useState([
+  const [diagKeys, setDiagKeys] = useState([
     '123',
-    '12',
-    '45'
+    '5'
   ]);
-  const [count, setCount] = useState(0);
-  const [date, setDate] = useState('May 20, 2020');
 
-  const addExposure = () => {
-    setCount((curCount) => curCount + 1)
-    setExposures((currExp) => [...currExp, { key: (count+1).toString(), date: date }]);
+  let exposurePage = 'Potential Exposures Safe';
+  
+  const triggerExp = () => {
+    // exposurePage = <ExposuresPageRisk exp={exposures} />;
+    exposurePage = 'Potential Exposures Risk';
+    Alert.alert(
+      'Potential Exposure!',
+      "You have been exposed to one or more individuals who tested positive for the virus in the past 14 days. Please go the 'Potential Exposure' page for guidelines on what to do next.",
+      [{
+        text: 'Close',
+        style: "destructive"
+      }]
+    );
+  }
+
+  const storeKey = async (key) => {
+    try {
+      await AsyncStorage.setItem('123', '0')
+    } catch(e) {console.log(e)}
   };
 
-  const saveKey = () => {
-    AsyncStorage.setItem('123','May 20')
-    Alert.alert('OK', 'Saved');
-  }
-
-  const findKey = async () => {
+  const findKeys = async () => {
     try {
-      const value = await AsyncStorage.getItem('123');
-      if(value !== null) {
-        // value previously stored
-        Alert.alert('Found', 'key has been seen');
-      } else {
-        Alert.alert('Not found', 'Key not previously seen');
-      };
-    }
-    catch(error) {
-
-    }
+      for (let diagK of diagKeys) {
+        let value = await AsyncStorage.getItem(diagK);
+        if (value !== null) {
+          triggerExp();
+        }
+      }
+    } catch(e) {console.log(e)}
   }
 
+  const getAllKeys = async () => {
+    let keys = []
+    try {
+      keys = await AsyncStorage.getAllKeys()
+    } catch(e) {console.log(e)}
+    console.log(keys)
+  }
 
+  const removeOne = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key)
+    } catch(e) {console.log(e)}
+    console.log('Done.')
+  }
+
+  const removeAll = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch(e) {console.log(e)}
+    console.log('Done.')
+  }
+  
   const apiCall = () => {
     fetch('http://54.157.183.164:8080/contactCheck', { method: "GET" })
       .then((response) => response.json())
       .then((responseData) => {
+        setDiagKeys([]);
         for (let obj of responseData) {
-          for (let t of exposures) {
-            if(obj.chirp === t) {
-              setCount(1);
-              return;
-            }
-          }
+          setDiagKeys((curr) => [...curr, obj.chirp]);
         }
-        console.log("Not found")
+        findKeys(); 
       })
       .catch((error) => {
         console.error(error);
@@ -65,28 +87,13 @@ const MainPage = props => {
   //   return () => clearInterval(interval);
   // }, []);
 
-
-  let exposurePage = 'Potential Exposures Safe';
-  if (count != 0) {
-    // exposurePage = <ExposuresPageRisk exp={exposures} />;
-    exposurePage = 'Potential Exposures Risk';
-    Alert.alert(
-      'Potential Exposure!', 
-      "You have been exposed to one or more individuals who tested positive for the virus in the past 14 days. Please go the 'Potential Exposure' page for guidelines on what to do next.",
-      [{ 
-        text: 'Close', 
-        style: "destructive" 
-      }]
-    );
-  }
-
   return (
     <View style={styles.screen}>
 
       <View style={styles.container}>
         <Card style={styles.card}>
           <TouchableOpacity onPress={() => {
-            props.navigation.navigate({routeName: exposurePage})
+            props.navigation.navigate({ routeName: exposurePage })
           }}>
             <View style={styles.line}>
               <Image style={styles.image} source={require('../images/virus.png')} />
@@ -96,7 +103,7 @@ const MainPage = props => {
         </Card>
         <Card style={styles.card}>
           <TouchableOpacity onPress={() => {
-            props.navigation.navigate({routeName: 'Report a Positive Test'})
+            props.navigation.navigate({ routeName: 'Report a Positive Test' })
           }}>
             <View style={styles.line}>
               <Image style={styles.image} source={require('../images/plus.png')} />
@@ -106,7 +113,7 @@ const MainPage = props => {
         </Card>
         <Card style={styles.card}>
           <TouchableOpacity onPress={() => {
-            props.navigation.navigate({routeName: 'Information'})
+            props.navigation.navigate({ routeName: 'Information 1' })
           }}>
             <View style={styles.line}>
               <Image style={styles.image} source={require('../images/info.png')} />
@@ -115,7 +122,7 @@ const MainPage = props => {
           </TouchableOpacity>
         </Card>
 
-        <Card style={{...styles.card, marginTop: 80, width: '40%'}}>
+        <Card style={{ ...styles.card, marginTop: 80, width: '40%' }}>
           <TouchableOpacity onPress={apiCall}>
             <View style={styles.line}>
               <Text style={{ paddingLeft: 20 }}>Call API</Text>
@@ -123,18 +130,26 @@ const MainPage = props => {
           </TouchableOpacity>
         </Card>
 
-        <Card style={{...styles.card, width: '40%'}}>
-          <TouchableOpacity onPress={saveKey}>
+        <Card style={{ ...styles.card, width: '40%' }}>
+          <TouchableOpacity onPress={storeKey}>
             <View style={styles.line}>
               <Text style={{ paddingLeft: 20 }}>Save</Text>
             </View>
           </TouchableOpacity>
         </Card>
 
-        <Card style={{...styles.card, width: '40%'}}>
-          <TouchableOpacity onPress={findKey}>
+        <Card style={{ ...styles.card, width: '40%' }}>
+          <TouchableOpacity onPress={findKeys}>
             <View style={styles.line}>
               <Text style={{ paddingLeft: 20 }}>Retrieve</Text>
+            </View>
+          </TouchableOpacity>
+        </Card>
+
+        <Card style={{ ...styles.card, width: '50%' }}>
+          <TouchableOpacity onPress={getAllKeys}>
+            <View style={styles.line}>
+              <Text style={{ paddingLeft: 20 }}>Print seen keys</Text>
             </View>
           </TouchableOpacity>
         </Card>
