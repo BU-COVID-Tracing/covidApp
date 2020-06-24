@@ -13,12 +13,15 @@ Follow the steps to set up the environment for the [React Native CLI Quickstart]
 #### 1. Clone or download the repository
 
 #### 2. Install dependencies
+Navigate to the folder and run
 ```
 yarn install
 ```
 
 #### 3. Start app
-Connect to an Android and follow [these steps](https://reactnative.dev/docs/running-on-device), or use an AVD
+Connect to an Android device and follow [these steps](https://reactnative.dev/docs/running-on-device), or use an AVD.
+
+Then run
 
 ```
 yarn react-native run-android
