@@ -10,7 +10,7 @@ Follow the steps to set up the environment for the [React Native CLI Quickstart]
 
 ### Running
 
-#### 1. Clone or install the repository
+#### 1. Clone or download the repository
 
 #### 2. Install dependencies
 ```
