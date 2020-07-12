@@ -24,7 +24,7 @@ Connect to an Android device and follow [these steps](https://reactnative.dev/do
 Then run
 
 ```
-yarn react-native run-android
+yarn android
 ```
 or
 ```
