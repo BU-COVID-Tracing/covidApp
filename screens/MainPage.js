@@ -36,7 +36,7 @@ class MainPage extends Component {
       scanning: false,
       peripherals: new Map(),
       appState: '',
-      diagKeys: ['123', '5'],
+      diagKeys: [],
       exposurePage: 'Potential Exposures Safe',
       uuid: '',
       devicesFound: []
@@ -300,11 +300,11 @@ class MainPage extends Component {
   }
 
   apiCall() {
-    fetch('http://54.89.12.208:8080/contactCheck', { method: "GET" })
+    fetch('http://54.237.106.177:8080/contactCheck', { method: "GET" })
       .then((response) => response.json())
       .then((responseData) => {
-        setDiagKeys([]);
-        for (let obj of responseData) {
+        this.setState({diagKeys: []});
+        for (let obj of responseData["dataContainer"]) {
           this.setState(prevState => ({
             diagKeys: [...prevState.diagKeys, obj.chirp]
           }))

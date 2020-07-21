@@ -1,17 +1,45 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button, TextInput } from 'react-native';
-
-import Card from '../components/Card'
+import AsyncStorage from '@react-native-community/async-storage';
 
 const ReportPage = props => {
+
+  const upload = async () => {
+    try {
+      let key = await AsyncStorage.getItem('0')
+
+      key = key.substring(4, 8) + key.substring(9, 13) + key.substring(14, 18) + key.substring(19, 23) + key.substring(24)
+
+      fetch('http://54.237.106.177:8080/InfectedKey', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          [
+            {
+              'chirp': key,
+              'time': "1"
+            }
+          ])
+      });
+    } catch (e) { }
+
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Enter authorization key</Text>
       <Text style={styles.second}>Obtain this key from your doctor</Text>
       <View style={styles.container}>
-        <TextInput style={styles.input} placeholder="Key"/>
-        <Button title='SUBMIT' style={styles.button} color='rgb(248,145,85)' />
+        <TextInput style={styles.input} placeholder="Key" />
+        <Button
+          title='SUBMIT'
+          style={styles.button}
+          color='rgb(248,145,85)'
+          onPress={upload} />
       </View>
     </View>
   );
@@ -52,7 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   button: {
-    alignItems:'center'
+    alignItems: 'center'
   }
 });
 
