@@ -431,13 +431,13 @@ class MainPage extends Component {
             </TouchableOpacity>
           </Card>
 
-          <Card style={{ ...styles.card, width: '70%' }}>
+          {/* <Card style={{ ...styles.card, width: '70%' }}>
             <TouchableOpacity onPress={() => this.testing_shit()}>
               <View style={styles.line}>
                 <Text style={{ paddingLeft: 20 }}>test</Text>
               </View>
             </TouchableOpacity>
-          </Card>
+          </Card> */}
 
         </View>
 
