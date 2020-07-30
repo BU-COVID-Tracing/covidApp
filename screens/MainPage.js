@@ -92,25 +92,51 @@ class MainPage extends Component {
     });
   }
 
+  // Handle UUIDs
+
+  // In storage: starts with '0' -> keys broadcasted
+  //             starts with '1' -> keys received
+
   async initialize() {
     try {
       let value = await AsyncStorage.getItem('0');
       if (value === null) {
-        UUIDGenerator.getRandomUUID((newUid) => {
-          this.setState({
-            uuid: 'b018' + newUid.slice(4)
-          });
-        });
-        try { 
-          await AsyncStorage.removeItem('0')
-          await AsyncStorage.setItem('0', this.state.uuid);
-        } catch (e) { console.log(e) }
+        this.create_new_uuid();
       } else {
         this.setState({
           uuid: value
         });
+        let temp = this.state.uuid
+        await AsyncStorage.setItem('0' + temp.substring(4, 8) + temp.substring(9, 13) + temp.substring(14, 18) + temp.substring(19, 23) + temp.substring(24), '1');
       }
     } catch (e) { console.log(e) }
+  }
+
+  async create_new_uuid() {
+    UUIDGenerator.getRandomUUID((newUid) => {
+      this.setState({
+        uuid: 'b018' + newUid.slice(4)
+      });
+    });
+    try {
+      await AsyncStorage.removeItem('0')
+      await AsyncStorage.setItem('0', this.state.uuid);
+      let temp = this.state.uuid
+      await AsyncStorage.setItem('0' + temp.substring(4, 8) + temp.substring(9, 13) + temp.substring(14, 18) + temp.substring(19, 23) + temp.substring(24), '1');
+    } catch(e) { console.log(e) }
+  }
+
+  async testing_shit() {
+    try {
+      let value = await AsyncStorage.getItem('0')
+      console.log(value)
+    } catch(e) {}
+    // this.removeAll()
+    // this.create_new_uuid()
+
+    // try {
+    //   await AsyncStorage.setItem('11123', '1')
+    // } catch(e) {}
   }
 
   //Scanning
@@ -178,6 +204,9 @@ class MainPage extends Component {
   handleDiscoverPeripheral(peripheral) {
     var peripherals = this.state.peripherals;
     let uuid = peripheral.advertising.serviceUUIDs[0]
+    if(peripheral.rssi > -60){
+      console.log(peripheral)
+    }
     if (uuid !== undefined) {
       if (uuid.substring(0, 4) === "b018") {
         if (!peripheral.name) {
@@ -262,14 +291,14 @@ class MainPage extends Component {
 
   async storeKey(key) {
     try {
-      await AsyncStorage.setItem(key, '0')
+      await AsyncStorage.setItem('1' + key, '1')
     } catch (e) { console.log(e) }
   };
 
   async findKeys() {
     try {
       for (let diagK of this.state.diagKeys) {
-        let value = await AsyncStorage.getItem(diagK);
+        let value = await AsyncStorage.getItem('1' + diagK);
         if (value !== null) {
           this.triggerExp();
         }
@@ -289,14 +318,14 @@ class MainPage extends Component {
     try {
       await AsyncStorage.removeItem(key)
     } catch (e) { console.log(e) }
-    console.log('Done.')
+    console.log('Key ' + key + ' deleted')
   }
 
   async removeAll() {
     try {
       await AsyncStorage.clear()
     } catch (e) { console.log(e) }
-    console.log('Done.')
+    console.log('All keys deleted.')
   }
 
   apiCall() {
@@ -362,22 +391,6 @@ class MainPage extends Component {
             </TouchableOpacity>
           </Card>
 
-          {/* <Card style={{ ...styles.card, width: '40%' }}>
-            <TouchableOpacity onPress={() => this.removeAll()}>
-              <View style={styles.line}>
-                <Text style={{ paddingLeft: 20 }}>Save/Del</Text>
-              </View>
-            </TouchableOpacity>
-          </Card> */}
-
-          {/* <Card style={{ ...styles.card, width: '40%' }}>
-            <TouchableOpacity onPress={() => this.findKeys()}>
-              <View style={styles.line}>
-                <Text style={{ paddingLeft: 20 }}>Retrieve</Text>
-              </View>
-            </TouchableOpacity>
-          </Card> */}
-
           <Card style={{ ...styles.card, width: '70%' }}>
             <TouchableOpacity onPress={() => this.startScan()}>
               <View style={styles.line}>
@@ -409,6 +422,22 @@ class MainPage extends Component {
               </View>
             </TouchableOpacity>
           </Card>
+
+          <Card style={{ ...styles.card, width: '70%' }}>
+            <TouchableOpacity onPress={() => this.create_new_uuid()}>
+              <View style={styles.line}>
+                <Text style={{ paddingLeft: 20 }}>Create new key</Text>
+              </View>
+            </TouchableOpacity>
+          </Card>
+
+          {/* <Card style={{ ...styles.card, width: '70%' }}>
+            <TouchableOpacity onPress={() => this.testing_shit()}>
+              <View style={styles.line}>
+                <Text style={{ paddingLeft: 20 }}>test</Text>
+              </View>
+            </TouchableOpacity>
+          </Card> */}
 
         </View>
 
