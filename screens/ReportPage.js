@@ -7,9 +7,23 @@ const ReportPage = props => {
 
   const upload = async () => {
     try {
-      let key = await AsyncStorage.getItem('0')
 
-      key = key.substring(4, 8) + key.substring(9, 13) + key.substring(14, 18) + key.substring(19, 23) + key.substring(24)
+      let allKeys = []
+      let out = []
+      allKeys = await AsyncStorage.getAllKeys()
+      
+      for (let k of allKeys) {
+        if (k !== '0' && k.substring(0, 1) === '0') {
+          out.push(
+            {
+              'chirp': k.substring(1),
+              'time': '1'
+            }
+          )
+        }
+      }
+
+      console.log(out)
 
       fetch('http://54.237.106.177:8080/InfectedKey', {
         method: 'POST',
@@ -17,13 +31,7 @@ const ReportPage = props => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(
-          [
-            {
-              'chirp': key,
-              'time': "1"
-            }
-          ])
+        body: JSON.stringify(out)
       });
     } catch (e) { }
 
