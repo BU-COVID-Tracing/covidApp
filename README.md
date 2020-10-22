@@ -32,5 +32,26 @@ This will start the metro bundler.
 Open a new terminal inside your React Native folder and run:
 
 npx react-native run-android
+<<<<<<< HEAD
 
 This will launch the app on your device. 
+=======
+```
+
+#### Potential Issues
+- If you get:
+
+``` shell
+error Failed to install the app. Make sure you have the Android development environment set up: https://reactnative.dev/docs/environment-setup. Run CLI with --verbose flag for more details.
+Error: spawn ./gradlew EACCES
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:267:19)
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+```
+
+It might be that you need to extend the `gradlew` privileges:
+
+``` shell
+chmod 755 android/gradlew
+```
+>>>>>>> 03b37011e5e9eb6cfdf17fc0af7711aaebe1fc3c
